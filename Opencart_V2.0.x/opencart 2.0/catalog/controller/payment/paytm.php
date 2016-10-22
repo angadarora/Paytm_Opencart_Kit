@@ -155,7 +155,11 @@ class ControllerPaymentpaytm extends Controller {
 				
 			} else {
 				$this->load->model('checkout/order');
-
+				//Enabling new order id to be generated after a failed transaction
+					if (isset($this->session->data['order_id'])) {
+					unset($this->session->data['order_id']);			
+					}							
+				
 				$data['continue'] = $this->url->link('checkout/cart');
 				if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/paytm_failure.tpl')) {
 					$this->template = $this->config->get('config_template') . '/template/payment/paytm_failure.tpl';
